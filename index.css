@@ -1,0 +1,93 @@
+#wrapper {
+  height: 0px;
+
+}
+
+div {
+  font-family: 'Verdana';
+}
+.tile {
+  width: 100%;
+  max-height: 100%;
+  background-image: url("https://www.tilemountain.co.uk/media/catalog/product/cache/1/image/2000x/040ec09b1e35df139433887a97daa66f/4/3/436430_c.png");
+  transition: opacity;
+  
+}
+
+.uncovered {
+  width: 100%;
+  max-height: 100%;
+  background-image: url("https://sc01.alicdn.com/kf/HTB1pPESJFXXXXXRXFXXq6xXFXXXl/light-blue-floor-tile.jpg");
+  transition: opacity;
+
+}
+
+.flagged {
+  width: 100%;
+  max-height: 100%;
+  background-image: url("https://thumb1.shutterstock.com/display_pic_with_logo/169796290/658696429/stock-vector-red-flag-icon-658696429.jpg");
+  background-size: 100% 100%;
+  transition: opacity;
+}
+
+.mine {
+  width: 100%;
+  max-height: 100%;
+  background-image: url("http://vector.me/files/images/3/7/376860/explosion_preview");
+  transition: opacity;
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.tile:not(.nohover):hover {
+  opacity: 0.5;
+}
+
+.row {
+  width: 100%;
+}
+
+.column {
+  float: left;
+  text-align: center;
+  transition: box-shadow;
+  outline: 1px solid #888;
+  cursor: pointer;
+}
+
+#info{
+  position: relative;
+  float:left;
+  width:100%;
+}
+
+#insert{
+  display: inline-block
+}
+#reset{
+  width: 100%;
+}
+
+.button {
+    clear:both;
+    margin-top: 10px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+}
+
+
+
+/*.column:hover {
+  box-shadow: 1px 1px 1px 1px #444;
+}
+
+.column:active {
+  background-color: #888;
+  box-shadow: 0 1px #666;
+}*/
