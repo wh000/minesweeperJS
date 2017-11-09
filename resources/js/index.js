@@ -1,5 +1,6 @@
 var firstClick = true;
 var numFlags;
+var numCovered;
 
 var Board = {
   difficulty: 1,
@@ -28,12 +29,12 @@ var Board = {
     // Check for mines
     
     if (this.hasMine(r,c) && ($clickedElement.hasClass("tile"))){
+      console.log("triggered mine");
+      console.log(this.board);
       this.gameOver(r,c, $clickedElement);
     }
     
-    //  Generate temporary traversed map to keep track of tiles we have already checked
     
-    this.traversed = $.extend(true, [], this.board);
     
     //  Recursively check the board array if an empty tile is clicked
     //  Will not trigger if flagged tile is clicked
@@ -54,6 +55,11 @@ var Board = {
     if (!(this.hasMine(r,c))){
       this.traversed[r][c] = 2;
       this.updateClass("tile", "uncovered", $tile);
+      numCovered -= 1;
+      $("#left").text(numCovered);
+      if (numCovered === 0){
+        this.youWin();
+      }
       
     } 
     
@@ -131,6 +137,19 @@ var Board = {
   gameOver: function(r,c, $clickedElement){
     this.updateClass('tile', 'mine', $clickedElement);
     alert("YOU LOSE");
+     //$('.column').off('click');
+     for (var i = 0; i < this.board.length; i++){
+       for (var j = 0; j < this.board[0].length; j++){
+         if (this.board[i][j] === 1){
+           var $tile = $('#wrapper').find("#r"+i).children("#c"+j);
+           this.updateClass('tile', 'mine', $tile);
+         }
+       }
+     }
+  },
+  
+  youWin: function(){
+    alert("YOU WIN");
      $('.column').off('click');
   },
   
@@ -159,7 +178,12 @@ var Board = {
     
     
     numMines = (numRows - 5) * (numCols - 5);
+    if (this.difficulty === 3){
+      numMines = 99;
+    }
     numFlags = numMines;
+    numCovered = (numRows * numCols) - numMines;
+    
     $("#insert").text(numFlags);
     
     //  Randomly place mines;
@@ -181,6 +205,10 @@ var Board = {
       }
     }
     
+    //  Generate temporary traversed map to keep track of tiles we have already checked
+    
+    this.traversed = $.extend(true, [], this.board);
+    
   },
   
   displayBoard: function(){
@@ -198,7 +226,7 @@ var Board = {
         cols = 12;
         break;
       case 3:
-        rows = 24;
+        rows = 16;
         cols = 30;
         break;
       default:
@@ -266,6 +294,8 @@ var Board = {
 };
 
 $(document).ready(function () {
+  Board.board = [];
+  numCovered = 0;
   difficulty = prompt("Please select difficulty level");
   Board["difficulty"] = parseInt(difficulty);
   Board.displayBoard();
